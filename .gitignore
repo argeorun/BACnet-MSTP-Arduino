@@ -1,0 +1,14 @@
+# Internal project documentation (not for public repo)
+Phase-1/
+
+# Arduino IDE build output
+.build/
+
+# VS Code local settings (optional to share)
+.vscode/
+
+# macOS metadata
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
