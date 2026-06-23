@@ -34,7 +34,7 @@ to the original authors). See [`LICENSE`](LICENSE) for the full upstream license
 
 | Layer | Files | Description |
 |-------|-------|-------------|
-| Sketch entry point | `BACnetMSTP-Arduino.ino` | `setup()`, `loop()`, EEPROM bridge |
+| Sketch entry point | `BACnet-MSTP-Arduino.ino` | `setup()`, `loop()`, EEPROM bridge |
 | Platform abstraction | `src/platform/` | Arduino-specific HAL |
 | RS-485 port | `src/platform/rs485.cpp` | HardwareSerial + DE/RE pin control |
 | ADC abstraction | `src/platform/adc.c` | `analogRead()` wrapper |
@@ -122,15 +122,15 @@ to the original authors). See [`LICENSE`](LICENSE) for the full upstream license
 
 ```bash
 # Clone the master branch (R1 release)
-git clone -b master https://github.com/argeorun/BACnet-MSTP-Arduino.git BACnetMSTP-Arduino-R1
+git clone -b master https://github.com/argeorun/BACnet-MSTP-Arduino.git BACnet-MSTP-Arduino
 
 # Or clone the r1-release branch (identical)
-git clone -b r1-release https://github.com/argeorun/BACnet-MSTP-Arduino.git BACnetMSTP-Arduino-R1
+git clone -b r1-release https://github.com/argeorun/BACnet-MSTP-Arduino.git BACnet-MSTP-Arduino
 
 # Navigate to the project folder
-cd BACnetMSTP-Arduino-R1
+cd BACnet-MSTP-Arduino
 
-# Open BACnetMSTP-Arduino.ino in Arduino IDE
+# Open BACnet-MSTP-Arduino.ino in Arduino IDE
 ```
 
 ### Option B: Download as ZIP
@@ -145,13 +145,13 @@ cd BACnetMSTP-Arduino-R1
 After extraction, you'll have this structure:
 ```
 BACnet-MSTP-Arduino-master/         ← GitHub wrapper (outer folder)
-  └── BACnetMSTP-Arduino.ino     ← sketch (open this folder in Arduino IDE)
+  └── BACnet-MSTP-Arduino.ino     ← sketch (open this folder in Arduino IDE)
   └── src/
   └── README.md
   └── ...
 ```
 
-**⚠️ IMPORTANT:** Open the extracted folder directly in Arduino IDE — it contains `BACnetMSTP-Arduino.ino`.
+**⚠️ IMPORTANT:** Open the extracted folder directly in Arduino IDE — it contains `BACnet-MSTP-Arduino.ino`.
 
 **Step 3: Open in Arduino IDE**
 1. Move or extract the `BACnetMSTP-Arduino` folder to your Arduino projects directory:
@@ -160,7 +160,7 @@ BACnet-MSTP-Arduino-master/         ← GitHub wrapper (outer folder)
    - **Linux**: `~/Arduino/`
 
 2. In Arduino IDE, click **File** → **Open**
-4. Navigate to: `Arduino/BACnetMSTP-Arduino-R1/BACnetMSTP-Arduino.ino`
+4. Navigate to: `Arduino/BACnet-MSTP-Arduino/BACnet-MSTP-Arduino.ino`
 4. Click **Open**
 
 ---
@@ -233,9 +233,9 @@ After uploading successfully:
 ## Project Structure
 
 ```
-BACnetMSTP-Arduino-R1/
+BACnet-MSTP-Arduino/
 ├── README.md                            ← this file
-├── BACnetMSTP-Arduino.ino            ← sketch entry point
+├── BACnet-MSTP-Arduino.ino            ← sketch entry point
 ├── src/
 │   ├── compile_config.h                 ← stack build flags
 │   ├── platform/                        ← Arduino HAL (new code)
@@ -289,10 +289,11 @@ into firmware without the GPL copyleft extending to the application layer.
 Full upstream license: https://github.com/bacnet-stack/bacnet-stack
 
 ### Arduino port and platform abstraction layer (this project)
-New files contributed in this repository — including `BACnetMSTP-Arduino.ino`,
+New files contributed in this repository — including `BACnet-MSTP-Arduino.ino`,
 `src/platform/rs485.cpp`, `src/platform/adc.c`, `src/platform/nvdata.c`,
 `src/platform/pin_config.c`, `src/platform/stack.c`, `src/platform/timer.c`,
 and `src/compile_config.h` — are released under the **MIT License**.
 
 See [`LICENSE`](LICENSE) for the full MIT text that applies to these new files.
+
 
