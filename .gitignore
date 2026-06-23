@@ -1,0 +1,25 @@
+# Internal project documentation (not for public repo)
+Phase-1/
+
+# Local testing and task documentation (development notes only)
+NEXT_TASKS.md
+OPTIMIZATION_LOG.md
+TASK1_TESTING_GUIDE.md
+
+# Wireshark captures and test files
+*.txt
+
+# Arduino IDE build output
+.build/
+
+# Local rollback/backup files (for development only)
+.rollback/
+
+# VS Code local settings (optional to share)
+.vscode/
+
+# macOS metadata
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
