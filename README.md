@@ -1,15 +1,16 @@
 ## 🎯 Current Development Status
 
-**Latest Branch**: `Minimal-BACnet-mstp`  
-**Status**: ✅ LED Control Verified (March 23, 2026)
+**Latest Branch**: `master` (`r1-release`)  
+**Status**: ✅ Multi-board verified (June 2026)
 
 - ✅ LED control (BV:99) tested and working via YABE
 - ✅ WriteProperty implemented and tested
 - ✅ Error handling verified (invalid values correctly rejected)
-- ⏰ Full feature set: ReadProperty, WriteProperty, discovery
-- 📦 Ready for Arduino Library Manager packaging
+- ✅ Full feature set: ReadProperty, WriteProperty, Who-Is/I-Am discovery
+- ✅ Multi-board support: Uno, Mega 2560, ESP32, STM32 F103C8, STM32 F756ZG
+- 📦 Arduino Library wrapper available: `BACnetMSTP-ArduinoLib`
 
-**Previous Release**: `master` (Initial commit: BACnet MS/TP Arduino port)
+**Previous Branch**: `Minimal-BACnet-mstp` (LED control milestone — preserved)
 
 ---
 
@@ -47,9 +48,9 @@ to the original authors). See [`LICENSE`](LICENSE) for the full upstream license
 
 ## Features
 
-- **BACnet MS/TP** (RS-485, 9600–76800 baud, configurable MAC address) ✅
-- **Analog Value objects** (AV): ADC inputs (0–3), device config (92–95, writable), status (96–99) ✅
-- **Binary Value objects** (BV): Digital I/O control & **LED output** (BV:99, writable, **TESTED** ✅)
+- **BACnet MS/TP** (RS-485, 9600–1,152,000 baud, configurable MAC address) ✅
+- **Analog Value objects** (AV ×12): ADC inputs (AV:0–3), device config (AV:92–95, writable), status (AV:96–99) ✅
+- **Binary Value objects** (BV ×6): Digital outputs D3–D7 (BV:0–4) & **LED** (BV:99, **TESTED** ✅)
 - **ReadProperty** and **WriteProperty** service support (**TESTED** ✅)
 - **Who-Is / I-Am** discovery support (**TESTED** ✅)
 - **EEPROM persistence**: device instance, MAC address, baud rate ✅
@@ -58,17 +59,59 @@ to the original authors). See [`LICENSE`](LICENSE) for the full upstream license
 
 ---
 
-## Hardware — Milestone 1 (Arduino UNO)
+## Hardware Support
 
-| Signal | Arduino UNO Pin | Notes |
-|--------|----------------|-------|
+### Arduino Uno (AVR, 5 V)
+
+| Signal | Pin | Notes |
+|--------|-----|-------|
 | RS-485 TX | D1 (TX) | UART to RS-485 transceiver DI |
 | RS-485 RX | D0 (RX) | RS-485 transceiver RO → Arduino |
 | RS-485 DE/RE | D2 | Direction control (HIGH = transmit) |
-| Digital I/O | D3–D7 | BV:0–4 (BV:99 = onboard LED D13) |
+| Digital I/O | D3–D7 | BV:0–4 (BV:99 = LED D13) |
 | ADC inputs | A0–A3 | AV:0–3 |
 
-> Any RS-485 transceiver compatible with 5 V logic works (e.g. MAX485, SN75176).
+> **Note:** Uno uses its only UART for RS-485. USB serial debug is not available while running.
+
+### Arduino Mega 2560
+
+| Signal | Pin | Notes |
+|--------|-----|-------|
+| RS-485 TX | TX1 (D18) | Serial1 to transceiver DI |
+| RS-485 RX | RX1 (D19) | Transceiver RO → Mega |
+| RS-485 DE/RE | D8 (PIN_D8) | Direction control |
+| Digital I/O | D3–D7 | BV:0–4 (BV:99 = LED D13) |
+| ADC inputs | A0–A3 | AV:0–3 |
+
+### STM32 F103C8 (Blue Pill / Black Pill)
+
+| Signal | Pin | Notes |
+|--------|-----|-------|
+| RS-485 TX | PB10 (USART3) | Declared as `Serial_RS485` in library |
+| RS-485 RX | PB11 (USART3) | |
+| RS-485 DE/RE | PA12 (PIN_D8) | |
+| Digital I/O | PB3–PB5, PA10–PA11 | BV:0–4 (BV:99 = LED PB7) |
+| ADC inputs | PA3, PC0, PC3, PF3 | AV:0–3 |
+
+### STM32 Nucleo-144 (F756ZG / F746ZG / F429ZI)
+
+| Signal | Pin | Notes |
+|--------|-----|-------|
+| RS-485 TX | PG14 (USART6) | Declared as `Serial6` in library |
+| RS-485 RX | PG9 (USART6) | |
+| RS-485 DE/RE | PA12 | Change to any free GPIO |
+
+### ESP32
+
+| Signal | Pin | Notes |
+|--------|-----|-------|
+| RS-485 TX | GPIO25 (Serial1) | |
+| RS-485 RX | GPIO26 (Serial1) | |
+| RS-485 DE/RE | GPIO18 (PIN_D8) | |
+| Digital I/O | GPIO4,5,19,23,27 | BV:0–4 (BV:99 = LED GPIO2) |
+| ADC inputs | GPIO32–35 | AV:0–3 |
+
+> Any RS-485 transceiver compatible with the board's logic level works (e.g. MAX485, SN75176, SP3485).
 
 ---
 
@@ -77,13 +120,16 @@ to the original authors). See [`LICENSE`](LICENSE) for the full upstream license
 ### Option A: Clone from GitHub (Recommended)
 
 ```bash
-# Clone the main testing branch
-git clone -b Minimal-BACnet-mstp https://github.com/argeorun/BACnet-MSTP-Arduino.git BACnetMSTP-Arduino
+# Clone the master branch (R1 release)
+git clone -b master https://github.com/argeorun/BACnet-MSTP-Arduino.git BACnetMSTP-Arduino-R1
+
+# Or clone the r1-release branch (identical)
+git clone -b r1-release https://github.com/argeorun/BACnet-MSTP-Arduino.git BACnetMSTP-Arduino-R1
 
 # Navigate to the project folder
-cd BACnetMSTP-Arduino
+cd BACnetMSTP-Arduino-R1
 
-# Open in Arduino IDE
+# Open BACnetMSTP-Arduino-R1.ino in Arduino IDE
 ```
 
 ### Option B: Download as ZIP
@@ -91,22 +137,20 @@ cd BACnetMSTP-Arduino
 **Step 1: Download ZIP from GitHub**
 - Go to: https://github.com/argeorun/BACnet-MSTP-Arduino
 - Click **Code** → **Download ZIP**
-- Choose branch: `Minimal-BACnet-mstp` (LED control) or `master` (initial release)
+- Choose branch: `master` (R1 release — recommended)
 
 **Step 2: Extract the ZIP file**
 
 After extraction, you'll have this structure:
 ```
-BACnet-MSTP-Arduino-Minimal-BACnet-mstp/    ← GitHub wrapper (outer folder)
-  └── BACnetMSTP-Arduino/                   ← Project folder (open THIS one)
-      ├── BACnetMSTP-Arduino.ino
-      ├── src/
-      ├── README.md
-      └── ...
+BACnet-MSTP-Arduino-master/         ← GitHub wrapper (outer folder)
+  └── BACnetMSTP-Arduino-R1.ino     ← sketch (open this folder in Arduino IDE)
+  └── src/
+  └── README.md
+  └── ...
 ```
 
-**⚠️ IMPORTANT:** Do NOT open the outer `BACnet-MSTP-Arduino-Minimal-BACnet-mstp` folder  
-→ **Open the inner `BACnetMSTP-Arduino` folder** (it contains the `.ino` file)
+**⚠️ IMPORTANT:** Open the extracted folder directly in Arduino IDE — it contains `BACnetMSTP-Arduino-R1.ino`.
 
 **Step 3: Open in Arduino IDE**
 1. Move or extract the `BACnetMSTP-Arduino` folder to your Arduino projects directory:
@@ -115,7 +159,7 @@ BACnet-MSTP-Arduino-Minimal-BACnet-mstp/    ← GitHub wrapper (outer folder)
    - **Linux**: `~/Arduino/`
 
 2. In Arduino IDE, click **File** → **Open**
-3. Navigate to: `Arduino/BACnetMSTP-Arduino/BACnetMSTP-Arduino.ino`
+4. Navigate to: `Arduino/BACnetMSTP-Arduino-R1/BACnetMSTP-Arduino-R1.ino`
 4. Click **Open**
 
 ---
@@ -149,7 +193,7 @@ Once configured:
 - **Verify**: `Ctrl+Alt+R`
 - **Upload**: `Ctrl+Alt+U`
 
-**Result**: Board should boot and print debug info to **Serial Monitor** (9600 baud)
+**Result**: Board flashes and joins the MS/TP network. Debug output via Serial is available on Mega/ESP32/STM32 boards (Serial Monitor at 115200 baud). Not available on Uno (RS-485 uses the only UART).
 
 ---
 
@@ -165,28 +209,32 @@ After uploading successfully:
    - Device should appear on MS/TP network
    - Test LED control: Write BV:99 = 1 or 0
 
-3. **Check LED Response** (Minimal-BACnet-mstp branch)
+3. **Check LED Response**
    - Write BV:99 PRESENT_VALUE = 1 → LED turns ON
    - Write BV:99 PRESENT_VALUE = 0 → LED turns OFF
    - Expected response: < 100ms
+
+> **Uno note:** Serial Monitor is not available while BACnet runs — the Uno's only UART is used for RS-485. Use a Mega or ESP32 to get simultaneous USB debug output.
 
 ---
 
 ## Current Build Stats
 
-| Resource | Used | Total | % | Status |
-|----------|------|-------|---|--------|
-| Flash | 26,500 B | 32,256 B | 82% | ✅ Within target |
-| RAM | 1,460 B | 2,048 B | 71% | ✅ Within target |
+| Board | Flash used | Flash total | Flash % | RAM used | RAM total | RAM % |
+|-------|-----------|-------------|---------|---------|-----------|-------|
+| Arduino Uno | 28,054 B | 32,256 B | 86% | 1,631 B | 2,048 B | 79% |
+| STM32 F103C8 | 37,020 B | 65,536 B | 56% | 3,716 B | 20,480 B | 18% |
+| ESP32 | 317,903 B | 1,310,720 B | 24% | 22,056 B | 327,680 B | 6% |
+| STM32 F756ZG | 42,636 B | 1,048,576 B | 4% | 11,200 B | 327,680 B | 3% |
 
 ---
 
 ## Project Structure
 
 ```
-BACnetMSTP-Arduino/
+BACnetMSTP-Arduino-R1/
 ├── README.md                            ← this file
-├── BACnetMSTP-Arduino.ino               ← sketch entry point
+├── BACnetMSTP-Arduino-R1.ino            ← sketch entry point
 ├── src/
 │   ├── compile_config.h                 ← stack build flags
 │   ├── platform/                        ← Arduino HAL (new code)
@@ -210,19 +258,17 @@ BACnetMSTP-Arduino/
 
 ---
 
-## Multi-Board Roadmap
+## Multi-Board Support
 
-| Milestone | Board | RAM | Status |
-|-----------|-------|-----|--------|
-| M1 | Arduino UNO | 2 KB | ✅ Complete |
-| M2 | Arduino Mega 2560 | 8 KB | 🔲 Planned |
-| M3 | Arduino Due | 96 KB | 🔲 Planned |
-| M4 | Arduino Zero / MKR | 32 KB | 🔲 Planned |
-| M5 | ESP32 | 520 KB | 🔲 Planned |
-| M6 | STM32F1 | 20 KB | 🔲 Planned |
-| M7 | STM32F4 | 128 KB | 🔲 Planned |
-
-More boards will be added in future milestones as the codebase scales.
+| Board | RAM | Compile | Upload tested |
+|-------|-----|---------|---------------|
+| Arduino Uno | 2 KB | ✅ | ✅ |
+| Arduino Mega 2560 | 8 KB | ✅ | 🔲 |
+| ESP32 | 520 KB | ✅ | 🔲 |
+| STM32 F103C8 (Blue Pill) | 20 KB | ✅ | 🔲 |
+| STM32 Nucleo-144 F756ZG | 320 KB | ✅ | 🔲 |
+| Arduino Due | 96 KB | 🔲 Planned | 🔲 |
+| ESP32-S3 | 512 KB | 🔲 Planned | 🔲 |
 
 ---
 
