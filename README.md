@@ -8,7 +8,6 @@
 - ✅ Error handling verified (invalid values correctly rejected)
 - ✅ Full feature set: ReadProperty, WriteProperty, Who-Is/I-Am discovery
 - ✅ Multi-board support: Uno, Mega 2560, ESP32, STM32 F103C8, STM32 F756ZG
-- 📦 Arduino Library wrapper available: `BACnetMSTP-ArduinoLib`
 
 **Previous Branch**: `Minimal-BACnet-mstp` (LED control milestone — preserved)
 
@@ -288,7 +287,7 @@ into firmware without the GPL copyleft extending to the application layer.
 Full upstream license: https://github.com/bacnet-stack/bacnet-stack
 
 ### Arduino port and platform abstraction layer (this project)
-New files contributed in this repository — including `BACnetMSTP-Arduino.ino`,
+New files contributed in this repository — including `BACnetMSTP-Arduino-R1.ino`,
 `src/platform/rs485.cpp`, `src/platform/adc.c`, `src/platform/nvdata.c`,
 `src/platform/pin_config.c`, `src/platform/stack.c`, `src/platform/timer.c`,
 and `src/compile_config.h` — are released under the **MIT License**.
