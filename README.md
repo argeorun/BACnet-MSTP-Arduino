@@ -284,7 +284,9 @@ are covered by their original upstream licenses:
 
 The **GCC Runtime Library Exception** allows the GPL-licensed stack to be linked
 into firmware without the GPL copyleft extending to the application layer.  
-Full upstream license: https://github.com/bacnet-stack/bacnet-stack
+See `THIRD_PARTY_NOTICES.md` for scope and attribution mapping.
+Local GPL text copy: `LICENSES/GPL-2.0-or-later.txt`
+Upstream source: https://github.com/bacnet-stack/bacnet-stack
 
 ### Arduino port and platform abstraction layer (this project)
 New files contributed in this repository — including `BACnetMSTP-Arduino-R1.ino`,
@@ -292,4 +294,9 @@ New files contributed in this repository — including `BACnetMSTP-Arduino-R1.in
 `src/platform/pin_config.c`, `src/platform/stack.c`, `src/platform/timer.c`,
 and `src/compile_config.h` — are released under the **MIT License**.
 
+Copyright (c) 2025-2026 George Arun.
+
 See [`LICENSE`](LICENSE) for the full MIT text that applies to these new files.
+
+For files that contain upstream code plus local modifications, both upstream and local
+attribution notices are intentionally preserved.
