@@ -1,6 +1,15 @@
 # Internal project documentation (not for public repo)
 Phase-1/
 
+# Local testing and task documentation (development notes only)
+NEXT_TASKS.md
+OPTIMIZATION_LOG.md
+TASK1_TESTING_GUIDE.md
+
+# Wireshark captures and test files
+*.txt
+!LICENSES/*.txt
+
 # Arduino IDE build output
 .build/
 
