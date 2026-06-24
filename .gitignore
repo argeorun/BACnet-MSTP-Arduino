@@ -8,6 +8,7 @@ TASK1_TESTING_GUIDE.md
 
 # Wireshark captures and test files
 *.txt
+!LICENSES/*.txt
 
 # Arduino IDE build output
 .build/
