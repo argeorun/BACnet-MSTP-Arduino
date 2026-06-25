@@ -96,7 +96,7 @@ static uint8_t PDUBuffer[MAX_MPDU + 16];
 /* USER CONFIG */
 /* ========================================================= */
 
-#define AV_UPTIME_INSTANCE 0
+#define AV_UPTIME_INSTANCE 99  /* AV:0 has adc0_value read_callback — must use an instance with NULL callback */
 
 /* ========================================================= */
 /* Hardware init */

@@ -38,8 +38,8 @@ void RS485_Initialize(void) {
   RS485_Transmitter_Enable(false);  // start in receive mode
 
   #if defined(ARDUINO_ARCH_ESP32) && defined(CONFIG_IDF_TARGET_ESP32S3)
-  /* ESP32s3 requires RX/TX pins */
-  RS485_PORT.begin(RS485_Baud, SERIAL_8N1, PIN_UART2_RX, PIN_UART2_TX);
+  /* ESP32s3 requires RX/TX pins (use overridable macros from rs485_port_config.h) */
+  RS485_PORT.begin(RS485_Baud, SERIAL_8N1, RS485_UART_RX_PIN, RS485_UART_TX_PIN);
 
 #else
   /* Other boards */
@@ -86,8 +86,8 @@ bool RS485_Set_Baud_Rate(uint32_t baud) {
       RS485_Baud = baud;
       RS485_PORT.end();
    #if defined(ARDUINO_ARCH_ESP32) && defined(CONFIG_IDF_TARGET_ESP32S3)
-  /* ESP32s3 requires RX/TX pins */
-  RS485_PORT.begin(RS485_Baud, SERIAL_8N1, PIN_UART2_RX, PIN_UART2_TX);
+  /* ESP32s3 requires RX/TX pins (use overridable macros from rs485_port_config.h) */
+  RS485_PORT.begin(RS485_Baud, SERIAL_8N1, RS485_UART_RX_PIN, RS485_UART_TX_PIN);
 
 #else
   /* Other Arduino boards */

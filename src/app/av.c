@@ -21,6 +21,8 @@
 #include "../bacnet/wp.h"
 #include "../bacnet/basic/object/av.h"
 
+extern bool Device_Set_Object_Instance_Number(uint32_t object_id);
+
 /* functions to get the present value when requested */
 typedef float (*object_present_value_read_callback)(void);
 /* functions to get the present value when requested */
@@ -215,6 +217,7 @@ static bool device_id_write(float value)
     value32 = (int32_t)value;
     if ((value32 >= 0) && (value32 <= BACNET_MAX_INSTANCE)) {
         nvdata_unsigned24_set(NV_EEPROM_DEVICE_0, value32);
+        Device_Set_Object_Instance_Number((uint32_t)value32);
         status = true;
     }
 
