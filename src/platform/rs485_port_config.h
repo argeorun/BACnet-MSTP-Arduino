@@ -26,3 +26,21 @@ HardwareSerial Serial6(PG9,PG14);
 #endif
 
 // RS485_PORT defaults to Serial1 if not overridden by build flags or prior definitions.
+
+/* =========================================================================
+ * ESP32 UART pin overrides
+ * Define these before including this header to remap TX/RX pins without
+ * editing library source files.
+ *
+ * Example (in sketch, before including rs485_port_config.h):
+ *   #define RS485_UART_TX_PIN  17
+ *   #define RS485_UART_RX_PIN  16
+ * ========================================================================= */
+#if defined(ARDUINO_ARCH_ESP32)
+#  ifndef RS485_UART_TX_PIN
+#    define RS485_UART_TX_PIN  PIN_UART2_TX
+#  endif
+#  ifndef RS485_UART_RX_PIN
+#    define RS485_UART_RX_PIN  PIN_UART2_RX
+#  endif
+#endif

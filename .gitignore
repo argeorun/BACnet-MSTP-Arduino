@@ -10,6 +10,9 @@ TASK1_TESTING_GUIDE.md
 *.txt
 !LICENSES/*.txt
 
+# Local hardware test results and captures (never publish)
+testing docs/
+
 # Arduino IDE build output
 .build/
 

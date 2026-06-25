@@ -97,7 +97,14 @@ static uint8_t PDUBuffer[MAX_MPDU + 16];
 /* USER CONFIG */
 /* ========================================================= */
 
-#define AV_UPTIME_INSTANCE 0
+/*
+ * AV instance for uptime reporting.
+ * AV:99 ("Uptime") has no hardware read_callback, so the value written
+ * here is returned as-is by BACnet ReadProperty.
+ * Do NOT use AV:0-AV:3 — those have ADC read_callbacks that override
+ * any written present_value on every read.
+ */
+#define AV_UPTIME_INSTANCE 99
 
 /* ========================================================= */
 /* Hardware init */
