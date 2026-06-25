@@ -15,11 +15,19 @@ HardwareSerial Serial6(PG9,PG14);
 #define RS485_PORT Serial6
 
 #elif defined(ARDUINO_ARCH_ESP32) && defined(CONFIG_IDF_TARGET_ESP32S3)
-
+/* ESP32-S3: Serial2 on GPIO17(TX)/GPIO16(RX) */
 #define RS485_PORT Serial2
 
-#else
+#elif defined(ARDUINO_ARCH_ESP32)
+/* Generic ESP32: Serial2 on GPIO17(TX)/GPIO16(RX) — frees Serial for USB debug */
+#define RS485_PORT Serial2
 
+#elif defined(ARDUINO_AVR_MEGA2560)
+/* Mega 2560: Serial1 on TX1=18, RX1=19 — frees Serial for USB debug */
+#define RS485_PORT Serial1
+
+#else
+/* UNO and other single-UART AVR: Serial is the only option */
 #define RS485_PORT Serial
 
 #endif

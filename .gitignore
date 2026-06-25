@@ -13,6 +13,9 @@ TASK1_TESTING_GUIDE.md
 # Local hardware test results and captures (never publish)
 testing docs/
 
+# Local documentation folder (design notes, analysis docs — not for repo)
+Docs/
+
 # Arduino IDE build output
 .build/
 
