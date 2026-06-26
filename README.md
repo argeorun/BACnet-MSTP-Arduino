@@ -3,13 +3,14 @@
 ## 🎯 Current Development Status
 
 **Latest Branch**: `master` (`r1-release`)  
-**Status**: ✅ Multi-board verified (June 2026)
+**Status**: ✅ All boards hardware-validated (June 2026)
 
 - ✅ LED control (BV:99) tested and working via YABE
 - ✅ WriteProperty implemented and tested
 - ✅ Error handling verified (invalid values correctly rejected)
 - ✅ Full feature set: ReadProperty, WriteProperty, Who-Is/I-Am discovery
-- ✅ Multi-board support: Uno, Mega 2560, ESP32, STM32 F103C8, STM32 F756ZG
+- ✅ Multi-board support: Uno, Mega 2560, ESP32, ESP32-S3, STM32 F103C8, STM32 F756ZG
+- ✅ All 5 boards confirmed working with YABE after v0.0.3 RS485 port fix (June 26, 2026)
 
 **Previous Branch**: `Minimal-BACnet-mstp` (LED control milestone — preserved)
 
@@ -102,15 +103,25 @@ to the original authors). See [`LICENSE`](LICENSE) for the full upstream license
 | RS-485 RX | PG9 (USART6) | |
 | RS-485 DE/RE | PA12 | Change to any free GPIO |
 
-### ESP32
+### ESP32 (generic)
 
 | Signal | Pin | Notes |
 |--------|-----|-------|
-| RS-485 TX | GPIO25 (Serial1) | |
-| RS-485 RX | GPIO26 (Serial1) | |
+| RS-485 TX | GPIO17 (Serial2) | |
+| RS-485 RX | GPIO16 (Serial2) | |
 | RS-485 DE/RE | GPIO18 (PIN_D8) | |
 | Digital I/O | GPIO4,5,19,23,27 | BV:0–4 (BV:99 = LED GPIO2) |
 | ADC inputs | GPIO32–35 | AV:0–3 |
+
+### ESP32-S3
+
+| Signal | Pin | Notes |
+|--------|-----|-------|
+| RS-485 TX | GPIO17 (Serial2) | |
+| RS-485 RX | GPIO16 (Serial2) | |
+| RS-485 DE/RE | GPIO2 (PIN_D8) | |
+| Digital I/O | GPIO3,14,15,18,47 | BV:0–4 (BV:99 = LED RGB_BUILTIN) |
+| ADC inputs | GPIO4–7 | AV:0–3 |
 
 > Any RS-485 transceiver compatible with the board's logic level works (e.g. MAX485, SN75176, SP3485).
 
@@ -261,15 +272,15 @@ BACnet-MSTP-Arduino/
 
 ## Multi-Board Support
 
-| Board | RAM | Compile | Upload tested |
-|-------|-----|---------|---------------|
-| Arduino Uno | 2 KB | ✅ | ✅ |
-| Arduino Mega 2560 | 8 KB | ✅ | 🔲 |
-| ESP32 | 520 KB | ✅ | 🔲 |
-| STM32 F103C8 (Blue Pill) | 20 KB | ✅ | 🔲 |
-| STM32 Nucleo-144 F756ZG | 320 KB | ✅ | 🔲 |
+| Board | RAM | Compile | Upload & YABE tested |
+|-------|-----|---------|----------------------|
+| Arduino Uno | 2 KB | ✅ | ✅ (v0.0.3, June 26 2026) |
+| Arduino Mega 2560 | 8 KB | ✅ | ✅ (v0.0.3, June 26 2026) |
+| ESP32 (generic) | 520 KB | ✅ | ✅ (v0.0.3, June 26 2026) |
+| ESP32-S3 | 512 KB | ✅ | ✅ (v0.0.3, June 26 2026) |
+| STM32 F103C8 (Blue Pill) | 20 KB | ✅ | ✅ (v0.0.3, June 26 2026) |
+| STM32 Nucleo-144 F756ZG | 320 KB | ✅ | ✅ (v0.0.3, June 26 2026) |
 | Arduino Due | 96 KB | 🔲 Planned | 🔲 |
-| ESP32-S3 | 512 KB | 🔲 Planned | 🔲 |
 
 ---
 
